@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext()
 
@@ -13,14 +13,19 @@ const ThemeProvider = ({children}) => {
 
     //works just fine for current use case, but for more complex projects/apps, could
     //cause you some trouble
-    setTheme(theme === "light" ? "dark" : "light");
-
-    return (
-      <ThemeContext.Provider values={ {theme, toggleTheme} }>
-        {children}
-      </ThemeContext.Provider>
-    );
+    // setTheme(theme === "light" ? "dark" : "light");
   }
-} 
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme])
+
+  return (
+    <ThemeContext.Provider value={ {theme, toggleTheme} }>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
 
 export {ThemeContext, ThemeProvider};
