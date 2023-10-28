@@ -1,5 +1,5 @@
-// import axios from "axios";
-let axios = require('axios');
+import axios from "axios";
+// let axios = require('axios');
 
 const BASE_URL = 'https://randomuser.me/api/';
 
@@ -9,7 +9,7 @@ const BASE_URL = 'https://randomuser.me/api/';
 //instead, we use secret/private environment variables
 //make sure you have installed the dotenv dependency 
 //(run 'npm install dotenv' in the terminal)
-API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 //anytime you are making a call to an API, it needs to be 
 //done asynchronously, such as inside of an async/await function
@@ -26,18 +26,21 @@ const fetchRandomUser = async () => {
     //if you aren't sure what the structure of your response is
     //(which is often the case), use console.log statements to 
     //examine it further
-    console.log(response);
+    // console.log(response.data.results);
     
-    //for this API, the relevant data is inside an array inside of 
-    //a results property
-    // return response.data.results[0]
-    return response;
+    //for this API, the relevant data is the only thing inside an array inside of 
+    //a results property inside of a data property
+    return response.data.results[0]
   } catch (error) {
     //console.error is a specific tool for logging out errors 
     console.error("Failed to fetch user", error);
+    
+    //async functions should always have a return statement
+    return null;
   }
 
 }
 
+export default fetchRandomUser;
 //call function in file to test
-fetchRandomUser();
+// fetchRandomUser();
