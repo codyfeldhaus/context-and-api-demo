@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 
+//initialize context object
 const ThemeContext = createContext()
 
 const ThemeProvider = ({children}) => {
@@ -16,11 +17,14 @@ const ThemeProvider = ({children}) => {
     // setTheme(theme === "light" ? "dark" : "light");
   }
 
+  //to change for entire document, use useEffect that runs when theme changes
   useEffect(() => {
     document.body.className = theme;
   }, [theme])
 
   return (
+    // provide the values, functions, etc. that you want to be in the context
+    // as parameters in the value object
     <ThemeContext.Provider value={ {theme, toggleTheme} }>
       {children}
     </ThemeContext.Provider>
